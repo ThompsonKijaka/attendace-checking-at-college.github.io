@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        html {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        input {
+            display: block;
+            border-style: solid;
+            border-width: 2px;
+            border-color: black;
+            border-radius: 8px;
+            width: 80%;
+            height: 30px;
+        }
+
+        input.unique {
+            margin-top: 100px;
+            margin-bottom: 20px
+        }
+
+        p {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        tr,
+        td {
+            font-size: 13px;
+            border-style: solid;
+            border-width: 0px;
+            border-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Bôi đen phần mssv trong Biểu Mẫu (GG Form) và gán vào input</p>
+    <input type="text" class="unique">
+    <p>B1: Bôi đen output bằng tay để copy paste, nếu không qua excel sẽ bị lỗi</p>
+    <p>B2: Qua file excel, bôi đen số dòng ứng với số lượng output rồi paste</p>
+    <p>B3: Find & Select (trên cùng bên phải Home) ==> Replace ==> Option ==> Replace Ô "vắng" màu Trắng thành Vàng</p>
+    <p>Output (Absent)</p>
+    <table>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        const myClass = ['N21DCCN002', 'N21DCCN003', 'N21DCCN005', 'N21DCCN006', 'N21DCCN007', 'N21DCCN008', 'N21DCCN010', 'N21DCCN011', 'N21DCCN012', 'N21DCCN013', 'N21DCCN015', 'N21DCCN016', 'N21DCCN017', 'N21DCCN020', 'N21DCCN021', 'N21DCCN022', 'N21DCCN023', 'N21DCCN026', 'N21DCCN027', 'N21DCCN028', 'N21DCCN030', 'N21DCCN031', 'N21DCCN032', 'N21DCCN033', 'N21DCCN034', 'N21DCCN035', 'N21DCCN037', 'N21DCCN038', 'N21DCCN039', 'N21DCCN040', 'N21DCCN041', 'N21DCCN042', 'N21DCCN043', 'N21DCCN044', 'N21DCCN045', 'N21DCCN047', 'N21DCCN048', 'N21DCCN049', 'N21DCCN050', 'N21DCCN051', 'N21DCCN052', 'N21DCCN053', 'N21DCCN054', 'N21DCCN055', 'N21DCCN057', 'N21DCCN058', 'N21DCCN059', 'N21DCCN060', 'N21DCCN062', 'N21DCCN064', 'N21DCCN066', 'N21DCCN067', 'N21DCCN068', 'N21DCCN069', 'N21DCCN070', 'N21DCCN071', 'N21DCCN072', 'N21DCCN074', 'N21DCCN075', 'N21DCCN076', 'N21DCCN077', 'N21DCCN078', 'N21DCCN079', 'N21DCCN081', 'N21DCCN082', 'N21DCCN083', 'N21DCCN084', 'N21DCCN086', 'N21DCCN087', 'N21DCCN088', 'N21DCCN089', 'N21DCCN090', 'N21DCCN092', 'N21DCCN093', 'N21DCCN094', 'N21DCCN095', 'N21DCCN096', 'N21DCCN097'];
+
+        document.querySelector('input').onkeydown = function (e) {
+            if (e.which == 13) {
+                let value = e.target.value.toUpperCase();
+                let data = [];
+                let start = value.indexOf("N");
+
+                while (start != -1) {
+                    data.push(value.slice(start, start + 10));
+                    start = value.indexOf("N", start + 10);
+                }
+                data.sort();
+                let output = "";
+                // !myClass.some((element) => element == student)
+                for (let student of myClass) {
+                    if ((data.some((e) => e === student))) {
+                        output += `<tr><td>Có mặt</td></tr>`;
+                    } else {
+                        output += `<tr><td>Vắng</td></tr>`;
+                    }
+                }
+
+                document.querySelector('tbody').innerHTML = output;
+                e.target.value = null;
+            }
+        }
+    </script>
+</body>
+
+</html>
